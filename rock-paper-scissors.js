@@ -8,26 +8,58 @@ let computerSelection = getComputerChoice().toUpperCase();
 
 
 function playerRound(playerSelection, computerSelection) {
-	let winningMoves = {"ROCK" : "SCISSORS", "SCISSORS" : "PAPER", "PAPER" : "ROCK"};
-	let playerScore = 0;
-	let computerScore = 0;
+	const winningMoves = {"ROCK" : "SCISSORS", "SCISSORS" : "PAPER", "PAPER" : "ROCK"};
+
+	if (playerSelection === "") {
+		playerSelection = getComputerChoice().toUpperCase()	//if player doesn't make a move then a random one is given
+	}
 	if (playerSelection === computerSelection) {
+		console.log("It's a Draw!");
+		return "draw"
+	} else if (winningMoves[playerSelection] === computerSelection) {
+		console.log(`You win! ${playerSelection} beats ${computerSelection}`);
+		return "player"
+	} else {
+		console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
+		return "comp"
+	}
+}
+
+function scoring(round, playerScore, computerScore) {
+	if (round === "draw") {
 		playerScore += 1;
 		computerScore += 1;
-		return "It's a Draw!";
-	} else if (winningMoves[playerSelection] === computerSelection) {
+	} else if (round === "player") {
 		playerScore++
-		return `You win! ${playerSelection} beats ${computerSelection}`;
 	} else {
 		computerScore++
-		return `You lose! ${computerSelection} beats ${playerSelection}`;
+	}
+	scores = [playerScore, computerScore]
+	return scores
+}
+
+function winner(playerScore, computerScore) {
+	if (playerScore > computerScore) {
+		console.log("Congratulations! You've won!");
+	} else if (playerScore < computerScore) {
+		console.log("Better luck next time.");
+	} else {
+		console.log("It's a draw!")
 	}
 }
 
 function game(rounds) {	
+	let playerScore = 0;
+	let computerScore = 0;
 	for (let i = 0; i < rounds; i++) {
 		let playerSelection = prompt("What's your move?", "").toUpperCase();
-		playerRound(playerSelection, computerSelection);
-		console.log(`The current score is:\nPlayer: ${playerScore} points\nComputer: ${computerScore}`)
+		let round = playerRound(playerSelection, computerSelection);
+		let scores = scoring(round, playerScore, computerScore);
+		playerScore = scores[0];
+		computerScore = scores[1];
+		console.log(`Current score is:\nPlayer: ${playerScore}\nComputer: ${computerScore}`);
 	}
+	winner(playerScore, computerScore);
 }
+
+game(5)
