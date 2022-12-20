@@ -4,24 +4,24 @@ function getComputerChoice() {
 	return compChoice
 }
 
-let computerSelection = getComputerChoice().toUpperCase();
-
-
 function playerRound(playerSelection, computerSelection) {
 	const winningMoves = {"ROCK" : "SCISSORS", "SCISSORS" : "PAPER", "PAPER" : "ROCK"};
-
-	if (playerSelection === "") {
-		playerSelection = getComputerChoice().toUpperCase()	//if player doesn't make a move then a random one is given
-	}
-	if (playerSelection === computerSelection) {
-		console.log("It's a Draw!");
-		return "draw"
-	} else if (winningMoves[playerSelection] === computerSelection) {
-		console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-		return "player"
-	} else {
-		console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
-		return "comp"
+	while (true) {
+		if (playerSelection === "") {
+			playerSelection = getComputerChoice().toUpperCase()	//if player doesn't make a move then a random one is given
+		}
+		if (playerSelection === computerSelection) {
+			console.log("It's a Draw!");
+			return "draw"
+		} else if (winningMoves[playerSelection] === computerSelection) {
+			console.log(`You win! ${playerSelection} beats ${computerSelection}`);
+			return "player";
+		} else if (!(winningMoves.keys().includes(playerSelection))) {
+			console.log("This is input is not valid.");
+		} else (winningMoves[playerSelection] !== computerSelection); {
+			console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
+			return "comp";
+		}
 	}
 }
 
@@ -31,7 +31,7 @@ function scoring(round, playerScore, computerScore) {
 		computerScore += 1;
 	} else if (round === "player") {
 		playerScore++
-	} else {
+	} else if (round === "comp") {
 		computerScore++
 	}
 	scores = [playerScore, computerScore]
@@ -53,6 +53,7 @@ function game(rounds) {
 	let computerScore = 0;
 	for (let i = 0; i < rounds; i++) {
 		let playerSelection = prompt("What's your move?", "").toUpperCase();
+		let computerSelection = getComputerChoice().toUpperCase();
 		let round = playerRound(playerSelection, computerSelection);
 		let scores = scoring(round, playerScore, computerScore);
 		playerScore = scores[0];
@@ -62,4 +63,22 @@ function game(rounds) {
 	winner(playerScore, computerScore);
 }
 
-game(5)
+function RPS() {
+	while (true) {
+		rounds = prompt("How many rounds do you want to play?", "");
+		if (rounds === "") {
+			continue
+		} else if (isNaN(rounds)) {
+			continue
+		} else {
+			game(Number(rounds));
+		}
+		playAgain = confirm("Do you wanna play again?");
+		if (!playAgain) {
+			alert("Bye bye!");
+			break;
+		}
+	}
+}
+
+RPS()
