@@ -15,9 +15,7 @@ function playerRound(playerSelection, computerSelection) {
 			return "draw"
 		} else if (winningMoves[playerSelection] === computerSelection) {
 			console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-			return "player";
-		} else if (!(winningMoves.keys().includes(playerSelection))) {
-			console.log("This is input is not valid.");
+			return "player"; // add an if condition in case player's input isn't valid
 		} else (winningMoves[playerSelection] !== computerSelection); {
 			console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
 			return "comp";
