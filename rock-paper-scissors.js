@@ -9,19 +9,22 @@ function playerRound(playerSelection, computerSelection) {
 	while (true) {
 		if (playerSelection === "") {
 			playerSelection = getComputerChoice().toUpperCase()	//if player doesn't make a move then a random one is given
-		}
+		} 
 		if (playerSelection === computerSelection) {
 			console.log("It's a Draw!");
-			return "draw"
+			return "draw";
 		} else if (winningMoves[playerSelection] === computerSelection) {
 			console.log(`You win! ${playerSelection} beats ${computerSelection}`);
 			return "player"; // add an if condition in case player's input isn't valid
-		} else (winningMoves[playerSelection] !== computerSelection); {
+		} else if (!(Array.from(Object.keys(winningMoves)).includes(playerSelection))) {
+			console.log("That's not a valid input.");
+			return "invalid";
+		} else if (winningMoves[playerSelection] !== computerSelection) {
 			console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
 			return "comp";
-		}
-	}
-}
+		} 
+	} 
+} 
 
 function scoring(round, playerScore, computerScore) {
 	if (round === "draw") {
@@ -54,9 +57,14 @@ function game(rounds) {
 		let computerSelection = getComputerChoice().toUpperCase();
 		let round = playerRound(playerSelection, computerSelection);
 		let scores = scoring(round, playerScore, computerScore);
-		playerScore = scores[0];
-		computerScore = scores[1];
-		console.log(`Current score is:\nPlayer: ${playerScore}\nComputer: ${computerScore}`);
+		if (round === "invalid") {
+			i--
+		} else {
+			playerScore = scores[0];
+			computerScore = scores[1];
+			console.log(`Current score is:\nPlayer: ${playerScore}\nComputer: ${computerScore}`);
+		}
+		
 	}
 	winner(playerScore, computerScore);
 }
@@ -71,7 +79,7 @@ function RPS() {
 		} else {
 			game(Number(rounds));
 		}
-		playAgain = confirm("Do you wanna play again?");
+		let playAgain = confirm("Do you wanna play again?");
 		if (!playAgain) {
 			alert("Bye bye!");
 			break;
