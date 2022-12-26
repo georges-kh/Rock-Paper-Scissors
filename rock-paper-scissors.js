@@ -15,7 +15,7 @@ function playerRound(playerSelection, computerSelection) {
 			return "draw";
 		} else if (winningMoves[playerSelection] === computerSelection) {
 			console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-			return "player"; // add an if condition in case player's input isn't valid
+			return "player";
 		} else if (!(Array.from(Object.keys(winningMoves)).includes(playerSelection))) {
 			console.log("That's not a valid input.");
 			return "invalid";
@@ -72,10 +72,11 @@ function game(rounds) {
 function RPS() {
 	while (true) {
 		rounds = prompt("How many rounds do you want to play?", "");
-		if (rounds === "") {
-			continue
-		} else if (isNaN(rounds)) {
-			continue
+		if (rounds === "" || isNaN(rounds)) {
+			console.log("That's not a valid input.");
+		} else if (rounds === null) {
+			console.log("Bye bye!");
+			throw "stop execution";
 		} else {
 			game(Number(rounds));
 		}
