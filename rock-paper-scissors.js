@@ -1,91 +1,64 @@
-function getComputerChoice() {
-	const moves = ["Rock", "Paper", "Scissors"];
-	compChoice = moves[Math.floor(Math.random()*moves.length)];
-	return compChoice
+// Choose a random move for the computer
+function getComputersChoice() {
+  const moves = ["Rock", "Paper", "Scissors"]; 
+  let computerSelection = moves[Math.floor(Math.random()*moves.length)]
+  return computerSelection; 
 }
 
-function playerRound(playerSelection, computerSelection) {
-	const winningMoves = {"ROCK" : "SCISSORS", "SCISSORS" : "PAPER", "PAPER" : "ROCK"};
-	while (true) {
-		if (playerSelection === "") {
-			playerSelection = getComputerChoice().toUpperCase()	//if player doesn't make a move then a random one is given
-		} 
-		if (playerSelection === computerSelection) {
-			console.log("It's a Draw!");
-			return "draw";
-		} else if (winningMoves[playerSelection] === computerSelection) {
-			console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-			return "player";
-		} else if (!(Array.from(Object.keys(winningMoves)).includes(playerSelection))) {
-			console.log("That's not a valid input.");
-			return "invalid";
-		} else if (winningMoves[playerSelection] !== computerSelection) {
-			console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
-			return "comp";
-		} 
-	} 
-} 
+// Play one round of RPS vs the computer
+function playRound(playerSelection, computerSelection) {
+  const winningMoves = {"Rock": "Scissors", "Paper": "Rock", "Scissors": "Paper"};
+  if (winningMoves[playerSelection] === computerSelection) {
+    console.log(`You win! ${playerSelection} beats ${computerSelection}`);
+    return "player";
 
-function scoring(round, playerScore, computerScore) {
-	if (round === "draw") {
-		playerScore += 1;
-		computerScore += 1;
-	} else if (round === "player") {
-		playerScore++
-	} else if (round === "comp") {
-		computerScore++
-	}
-	scores = [playerScore, computerScore]
-	return scores
+  } else if (playerSelection === computerSelection) {
+    console.log(`It's a draw! You both chose ${playerSelection}`);
+    return "draw";
+
+  } else {
+    console.log(`You lose! ${computerSelection} beats ${playerSelection}`);
+    return "computer";
+  } 
 }
 
-function winner(playerScore, computerScore) {
-	if (playerScore > computerScore) {
-		console.log("Congratulations! You've won!");
-	} else if (playerScore < computerScore) {
-		console.log("Better luck next time.");
-	} else {
-		console.log("It's a draw!")
-	}
+// Play 5 rounds while keeping score
+function game() {
+  let playerScore = 0;
+  let computerScore = 0;
+  for (let i = 0; i < 5; i++) {
+
+    // playerSelection and computerSelection inside loop to be declared differently every time
+    let playerSelection = (prompt("What's your move?", ""));
+    let computerSelection = getComputersChoice();
+    let round = playRound(playerSelection, computerSelection);
+
+    // if player wins, add 1 to playerScore
+    if (round === "player") {
+      playerScore++;
+
+    // if computer wins, add 1 to computerScore
+    } else if (round === "computer") {
+      computerScore++;
+
+    // if they draw, add 1 to both
+    } else if (round === "draw") {
+      playerScore++;
+      computerScore++;
+    }
+
+    console.log(`Player ${playerScore}, Computer ${computerScore}`);
+  }
+
+  if (playerScore > computerScore) {
+    console.log("You win the game!");
+
+  } else if (playerScore < computerScore) {
+    console.log("You lose the game.")
+    
+  } else {
+    console.log("It's a draw.");
+  }
 }
 
-function game(rounds) {	
-	let playerScore = 0;
-	let computerScore = 0;
-	for (let i = 0; i < rounds; i++) {
-		let playerSelection = prompt("What's your move?", "").toUpperCase();
-		let computerSelection = getComputerChoice().toUpperCase();
-		let round = playerRound(playerSelection, computerSelection);
-		let scores = scoring(round, playerScore, computerScore);
-		if (round === "invalid") {
-			i--
-		} else {
-			playerScore = scores[0];
-			computerScore = scores[1];
-			console.log(`Current score is:\nPlayer: ${playerScore}\nComputer: ${computerScore}`);
-		}
-		
-	}
-	winner(playerScore, computerScore);
-}
-
-function RPS() {
-	while (true) {
-		rounds = prompt("How many rounds do you want to play?", "");
-		if (rounds === "" || isNaN(rounds)) {
-			console.log("That's not a valid input.");
-		} else if (rounds === null) {
-			console.log("Bye bye!");
-			throw "stop execution";
-		} else {
-			game(Number(rounds));
-		}
-		let playAgain = confirm("Do you wanna play again?");
-		if (!playAgain) {
-			alert("Bye bye!");
-			break;
-		}
-	}
-}
-
-RPS()
+game();

@@ -1,0 +1,48 @@
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+
+.player {
+  width: 100%;
+  background-color: red;
+  flex: 4;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+button {
+  border: 1px solid black;
+  background-color: rgb(59, 100, 141);
+  border-radius: 2px;
+  padding: 3px 8px;
+}
+
+.score {
+  width: 100%;
+  background-color: blue;
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.score p {
+  color: white;
+}
+
+.comp {
+  width: 100%;
+  background-color: yellow;
+  flex: 4;
+  display: flex;
+}
+
+.comp p {
+  margin: auto;
+}
