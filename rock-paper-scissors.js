@@ -1,3 +1,5 @@
+
+
 // Choose a random move for the computer
 function getComputersChoice() {
   const moves = ["Rock", "Paper", "Scissors"]; 
@@ -22,15 +24,13 @@ function playRound(playerSelection, computerSelection) {
   } 
 }
 
+let playerScore = 0;
+let computerScore = 0;
+
 // Play 5 rounds while keeping score
 function game() {
-  let playerScore = 0;
-  let computerScore = 0;
-  for (let i = 0; i < 5; i++) {
-
-    // playerSelection and computerSelection inside loop to be declared differently every time
-    let playerSelection = (prompt("What's your move?", ""));
-    let computerSelection = getComputersChoice();
+		let playerSelection = this.value;
+		let computerSelection = getComputersChoice();
     let round = playRound(playerSelection, computerSelection);
 
     // if player wins, add 1 to playerScore
@@ -45,20 +45,19 @@ function game() {
     } else if (round === "draw") {
       playerScore++;
       computerScore++;
-    }
-
+		}
     console.log(`Player ${playerScore}, Computer ${computerScore}`);
-  }
 
-  if (playerScore > computerScore) {
-    console.log("You win the game!");
-
-  } else if (playerScore < computerScore) {
-    console.log("You lose the game.")
-    
-  } else {
-    console.log("It's a draw.");
-  }
+	if (playerScore >= 3 || computerScore >= 3) {
+		if (playerScore >= 3) {
+			console.log("You win the game!");
+		} else if (computerScore >= 3) {
+			console.log("You lose the game.")
+		}
+    playerScore = 0;
+    computerScore = 0;
+	}
 }
 
-game();
+const click = document.querySelectorAll("button");
+click.forEach((move) => move.addEventListener("click", game));
