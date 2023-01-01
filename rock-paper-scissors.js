@@ -48,24 +48,41 @@ function game() {
     if (round === "player") {
       playerScore++;
 
+      // change player's background to green and reset computer's
+      playerCount.style.background = "green";
+      computerCount.style.background = "rgb(173, 173, 173)";
+
     // if computer wins, add 1 to computerScore
     } else if (round === "computer") {
       computerScore++;
 
+      // change computer's background to green and reset player's
+      playerCount.style.background = "rgb(173, 173, 173)";
+      computerCount.style.background = "green";
+
     // if they draw, add 1 to both
     } else if (round === "draw") {
+
+      // change both backgrounds to gree
+      playerCount.style.background = "green";
+      computerCount.style.background = "green";
       playerScore++;
       computerScore++;
 		}
     console.log(`Player ${playerScore}, Computer ${computerScore}`);
+
+    // display the score on the page
     playerCount.textContent = playerScore;
     computerCount.textContent = computerScore;
+
 	if (playerScore >= 3 || computerScore >= 3) {
 		if (playerScore >= 3) {
 			console.log("You win the game!");
 		} else if (computerScore >= 3) {
 			console.log("You lose the game.")
 		}
+
+    // reset the score to 0 if player or computer wins
     playerScore = 0;
     computerScore = 0;
 	}
