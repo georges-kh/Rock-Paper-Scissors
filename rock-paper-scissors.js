@@ -58,7 +58,8 @@ function game() {
       computerScore++;
 		}
     console.log(`Player ${playerScore}, Computer ${computerScore}`);
-
+    playerCount.textContent = playerScore;
+    computerCount.textContent = computerScore;
 	if (playerScore >= 3 || computerScore >= 3) {
 		if (playerScore >= 3) {
 			console.log("You win the game!");
@@ -84,3 +85,9 @@ click.forEach((select) => select.addEventListener("transitionend", removeTransit
 const compMove = document.querySelectorAll(".computer button");
 // event listener for computer end of transitions
 compMove.forEach((compSelect) => compSelect.addEventListener("transitionend", removeTransition));
+
+// player score
+const playerCount = document.getElementById("player-count");
+
+// computer score
+const computerCount = document.getElementById("computer-count");
