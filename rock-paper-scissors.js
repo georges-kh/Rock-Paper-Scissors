@@ -1,7 +1,7 @@
 
 
 // Choose a random move for the computer
-function getComputersChoice() {
+function randomChoice() {
   const moves = ["Rock", "Paper", "Scissors"]; 
   let computerSelection = moves[Math.floor(Math.random()*moves.length)]
   return computerSelection; 
@@ -10,6 +10,9 @@ function getComputersChoice() {
 // Play one round of RPS vs the computer
 function playRound(playerSelection, computerSelection) {
   const winningMoves = {"Rock": "Scissors", "Paper": "Rock", "Scissors": "Paper"};
+  if (playerSelection === "Random") {
+    playerSelection = randomChoice();
+  }
   if (winningMoves[playerSelection] === computerSelection) {
     console.log(`You win! ${playerSelection} beats ${computerSelection}`);
     return "player";
@@ -29,11 +32,15 @@ let computerScore = 0;
 
 // Play 5 rounds while keeping score
 function game() {
-		let playerSelection = this.value;
-    this.classList.add("selected");
-		let computerSelection = getComputersChoice();
 
-    // adds the selected class to the computer buttons
+		let playerSelection = this.value;
+
+    // adds the selected class to the player buttons when click
+    this.classList.add("selected");
+    
+		let computerSelection = randomChoice();
+
+    // adds the selected class to the computer buttons when player buttons are clicked
     document.getElementById(computerSelection).classList.add("selected");
 
     let round = playRound(playerSelection, computerSelection);
