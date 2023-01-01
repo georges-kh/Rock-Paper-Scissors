@@ -30,9 +30,13 @@ let computerScore = 0;
 // Play 5 rounds while keeping score
 function game() {
 		let playerSelection = this.value;
+    this.classList.add("selected");
 		let computerSelection = getComputersChoice();
-    let round = playRound(playerSelection, computerSelection);
 
+    // adds the selected class to the computer buttons
+    document.getElementById(computerSelection).classList.add("selected");
+
+    let round = playRound(playerSelection, computerSelection);
     // if player wins, add 1 to playerScore
     if (round === "player") {
       playerScore++;
@@ -59,5 +63,17 @@ function game() {
 	}
 }
 
-const click = document.querySelectorAll("button");
+// removes the selected class from chosen buttons (player and computer)
+function removeTransition(e) {
+  if (e.propertyName !== "transform") return;
+  this.classList.remove("selected");
+}
+
+const click = document.querySelectorAll(".player button");
+// event listeners for player button clicks and end of transitions
 click.forEach((move) => move.addEventListener("click", game));
+click.forEach((select) => select.addEventListener("transitionend", removeTransition));
+
+const compMove = document.querySelectorAll(".computer button");
+// event listener for computer end of transitions
+compMove.forEach((compSelect) => compSelect.addEventListener("transitionend", removeTransition));

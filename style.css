@@ -11,7 +11,8 @@ body {
   align-items: center;
 }
 
-.player {
+.player,
+.computer {
   width: 100%;
   background-color: rgb(35, 121, 192);
   flex: 4;
@@ -22,32 +23,45 @@ body {
 
 button {
   font-family: "Righteous", sans-serif;
-  font-size: 20px;
+  font-size: 30px;
   padding: 20px 50px;;
   border: 0 solid black;
   border-radius: 5px;
-  box-shadow: 8px 8px;
-  transition: all 2s;
+  box-shadow: 8px 8px rgba(0, 0, 0, 0.8);
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.button:active {
-  transform: translate(8px, 8px);
+.computer button {
+  cursor: default;
 }
 
 .rock-button {
-  background-color: rgb(250,70,22);
+  background: rgb(250,70,22);
 }
 
 .paper-button {
-  background-color: rgb(154,205,50);
+  background: rgb(154,205,50);
 }
 
 .scissors-button {
-  background-color: rgb(138, 43, 226);
+  background: rgb(138, 43, 226);
 }
 
 .random-button {
-  background-color: rgb(212, 175, 55);
+  background: rgb(212, 175, 55);
+}
+
+/* .player button:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 6px 6px;
+} */
+
+.selected {
+  transform: translate(8px, 8px);
+  box-shadow: 0 0;
+  background: rgb(255, 255, 78);
+  color: purple;
 }
 
 .score {
@@ -68,8 +82,4 @@ button {
   background-color: rgb(238, 75, 75);
   flex: 4;
   display: flex;
-}
-
-.computer p {
-  margin: auto;
 }
