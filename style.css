@@ -91,10 +91,16 @@ img,
   width: 100%;
   font-family: "Righteous", sans-serif;
   background-color: grey;
-  flex: 1;
+  padding: 10px;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  
+}
+
+#update {
+  width: 400px;
+  text-align: center;
 }
 
 .player-score,
@@ -109,8 +115,10 @@ img,
 }
 
 .score-count {
+  text-align: center;
+  width: 30px;
   background: rgb(173, 173, 173);
-  padding: 3px;
+  padding: 5px 5px;
   border-radius: 5px;
 }
 
